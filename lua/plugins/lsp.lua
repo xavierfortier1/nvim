@@ -22,33 +22,41 @@ return {
                 vim.lsp.protocol.make_client_capabilities(),
                 cmp_lsp.default_capabilities()
             )
+            vim.api.nvim_create_autocmd("LspAttach", {
+                desc = "LSP actions",
+                callback = function(event)
+                    local opts = { buffer = event.buf }
+                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+                    vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, opts)
+                end,
+            })
 
             require("fidget").setup()
             require("mason").setup()
+
+            local lspconfig = require("lspconfig")
             require("mason-lspconfig").setup({
-                ensure_installed = { "vhdl_ls", "clangd", "lua_ls", "neocmake", "taplo", "yamlls" },
+                ensure_installed = { "clangd", "lua_ls", "neocmake", "taplo", "yamlls", "ruff", "pyright" },
                 handlers = {
                     function(server_name)
-                        require("lspconfig")[server_name].setup {
+                        lspconfig[server_name].setup {
                             capabilities = capabilities
                         }
                     end,
-                    -- ginko_ls = function()
-                    --     require("lspconfig").ginko_ls.setup({
-                    --         capabilities = capabilities,
-                    --         filetypes = {"dts", "overlay"}
-                    --     })
-                    -- end,
                     neocmake = function()
                         local cmake_capabilities = capabilities
                         cmake_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-                        require("lspconfig").neocmake.setup({
+                        lspconfig.neocmake.setup({
                             capabilities = cmake_capabilities,
                         })
                     end,
                     lua_ls = function()
-                        require("lspconfig").lua_ls.setup({
+                        lspconfig.lua_ls.setup({
                             capabilities = capabilities,
                             settings = {
                                 Lua = {
@@ -58,7 +66,27 @@ return {
                                 }
                             }
                         })
-                    end
+                    end,
+                    ruff = function()
+                        local ruff_capabilities = capabilities
+                        ruff_capabilities.hoverProvider = false
+
+                        lspconfig.ruff.setup({
+                            capabilities = ruff_capabilities,
+                        })
+                    end,
+                    lspconfig.pyright.setup {
+                        settings = {
+                            pyright = {
+                                disableOrganizeImports = true,
+                            },
+                            python = {
+                                analysis = {
+                                    ignore = { '*' },
+                                },
+                            },
+                        },
+                    }
                 }
             })
 

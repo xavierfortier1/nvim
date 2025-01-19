@@ -21,11 +21,17 @@ return {
                 desc = "Find files"
             },
             {
-                "<leader>w",
+                "<leader>g",
                 mode = "n",
                 function() MiniPick.builtin.grep_live() end,
                 desc = "Find words"
-            }
+            },
+            {
+                "<leader>b",
+                mode = "n",
+                function() MiniPick.builtin.buffers() end,
+                desc = "Find buffers"
+            },
         }
     }
 }
