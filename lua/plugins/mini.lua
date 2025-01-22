@@ -2,12 +2,12 @@ return {
     {
         "echasnovski/mini.pairs",
         version = false,
-        opts = {}
+        opts = {},
     },
     {
         "echasnovski/mini.icons",
         version = false,
-        opts = {}
+        opts = {},
     },
     {
         "echasnovski/mini.pick",
@@ -15,23 +15,29 @@ return {
         opts = {},
         keys = {
             {
-                "<leader>f",
+                "<leader>F",
                 mode = "n",
-                function() MiniPick.builtin.files() end,
-                desc = "Find files"
+                function()
+                    require("mini.pick").builtin.files()
+                end,
+                desc = "Find files",
             },
             {
-                "<leader>g",
+                "<leader>G",
                 mode = "n",
-                function() MiniPick.builtin.grep_live() end,
-                desc = "Find words"
+                function()
+                    require("mini.pick").builtin.grep_live()
+                end,
+                desc = "Find words",
             },
             {
-                "<leader>b",
+                "<leader>B",
                 mode = "n",
-                function() MiniPick.builtin.buffers() end,
-                desc = "Find buffers"
+                function()
+                    require("mini.pick").builtin.buffers()
+                end,
+                desc = "Find buffers",
             },
-        }
-    }
+        },
+    },
 }

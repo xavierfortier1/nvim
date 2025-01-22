@@ -23,6 +23,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "100"
 
-vim.opt.fillchars = {eob = " "}
+vim.opt.fillchars = { eob = " " }
 
 vim.opt.clipboard:append("unnamedplus")

@@ -1,7 +1,7 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    main = 'nvim-treesitter.configs',
+    main = "nvim-treesitter.configs",
     config = function()
         require("nvim-treesitter.configs").setup({
             highlight = { enable = true },
@@ -9,8 +9,6 @@ return {
             auto_install = { enable = true },
             ensure_installed = {
                 "c",
-                "kconfig",
-                "devicetree",
                 "cmake",
                 "comment",
                 "lua",
@@ -20,8 +18,8 @@ return {
                 "toml",
                 "yaml",
                 "json",
-                "python"
-            }
+                "python",
+            },
         })
-    end
+    end,
 }

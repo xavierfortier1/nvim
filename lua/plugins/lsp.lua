@@ -43,9 +43,9 @@ return {
                 ensure_installed = { "clangd", "lua_ls", "neocmake", "taplo", "yamlls", "ruff", "pyright" },
                 handlers = {
                     function(server_name)
-                        lspconfig[server_name].setup {
-                            capabilities = capabilities
-                        }
+                        lspconfig[server_name].setup({
+                            capabilities = capabilities,
+                        })
                     end,
                     neocmake = function()
                         local cmake_capabilities = capabilities
@@ -62,9 +62,9 @@ return {
                                 Lua = {
                                     diagnostics = {
                                         globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                    }
-                                }
-                            }
+                                    },
+                                },
+                            },
                         })
                     end,
                     ruff = function()
@@ -75,19 +75,19 @@ return {
                             capabilities = ruff_capabilities,
                         })
                     end,
-                    lspconfig.pyright.setup {
+                    lspconfig.pyright.setup({
                         settings = {
                             pyright = {
                                 disableOrganizeImports = true,
                             },
                             python = {
                                 analysis = {
-                                    ignore = { '*' },
+                                    ignore = { "*" },
                                 },
                             },
                         },
-                    }
-                }
+                    }),
+                },
             })
 
             local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -95,20 +95,20 @@ return {
             cmp.setup({
                 snippet = {
                     expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+                    ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+                    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
                     ["<C-Space>"] = cmp.mapping.complete(),
                 }),
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
-                    { name = 'buffer' },
-                })
+                    { name = "nvim_lsp" },
+                    { name = "luasnip" },
+                    { name = "buffer" },
+                }),
             })
 
             vim.diagnostic.config({
