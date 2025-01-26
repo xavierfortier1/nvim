@@ -1,9 +1,12 @@
 return {
     "OXY2DEV/markview.nvim",
-    ft = { "markdown" },
+    lazy = false,
     opts = {
-        modes = { "n", "i", "no", "c" },
-        hybrid_modes = { "n", "i", "no", "c" },
+        preview = {
+            icon_provider = "mini",
+            modes = { "n", "i", "no", "c" },
+        },
+
     },
     dependencies = {
         "nvim-treesitter/nvim-treesitter",
