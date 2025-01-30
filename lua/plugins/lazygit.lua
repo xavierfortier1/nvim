@@ -4,6 +4,6 @@ return {
     cmd = { "LazyGit" },
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-        { "<leader>lg", mode = "n", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+        { "<leader>lg", mode = "n", "<cmd>LazyGit<cr>", desc = "Lazygit" },
     },
 }
