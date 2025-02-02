@@ -11,7 +11,7 @@ return {
     local dapui = require("dapui")
 
     require("mason-nvim-dap").setup({
-      automatic_installation = true,
+      automatic_installation = false,
       handlers = {},
       ensure_installed = {},
     })

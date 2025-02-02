@@ -1,8 +1,7 @@
 return {
-  "saghen/blink.cmp",
-  version = "*",
+  "neovim/nvim-lspconfig",
   dependencies = {
-    "neovim/nvim-lspconfig",
+    { "saghen/blink.cmp", version = "*" },
     "rafamadriz/friendly-snippets",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -15,17 +14,12 @@ return {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local opts = { buffer = args.buf }
 
-        if client:supports_method("textDocument/implementation") then
-          vim.keymap.set("n", "gr", vim.lsp.buf.implementation, opts)
-        end
-
-        if client:supports_method("textDocument/completion") then
+        if client:supports_method("textDocument/hover") then
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        end
+        if client:supports_method("textDocument/codeAction") then
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
         end
-
         if client:supports_method("textDocument/formatting") then
           vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, opts)
 
@@ -51,6 +45,7 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
+
       completion = {
         menu = {
           draw = {
@@ -61,7 +56,6 @@ return {
                   local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
                   return kind_icon
                 end,
-                -- Optionally, you may also use the highlights from mini.icons
                 highlight = function(ctx)
                   local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                   return hl
@@ -72,16 +66,27 @@ return {
         },
       },
     })
-    local lspconfig = require("lspconfig")
-
-    require("fidget").setup()
-    require("mason").setup()
 
     local capabilities =
       vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), blink.get_lsp_capabilities())
 
+    require("fidget").setup()
+    require("mason").setup()
+
+    local lspconfig = require("lspconfig")
+
     require("mason-lspconfig").setup({
-      ensure_installed = { "clangd", "lua_ls", "neocmake", "taplo", "yamlls", "ruff", "pyright" },
+      ensure_installed = {
+        "clangd",
+        "lua_ls",
+        "neocmake",
+        "taplo",
+        "yamlls",
+        "ruff",
+        "pyright",
+        "jsonls",
+      },
+
       handlers = {
         function(server_name)
           lspconfig[server_name].setup({
@@ -117,18 +122,21 @@ return {
             capabilities = ruff_capabilities,
           })
         end,
-        lspconfig.pyright.setup({
-          settings = {
-            pyright = {
-              disableOrganizeImports = true,
-            },
-            python = {
-              analysis = {
-                ignore = { "*" },
+        pyright = function()
+          lspconfig.pyright.setup({
+            capabilities = capabilities,
+            settings = {
+              pyright = {
+                disableOrganizeImports = true,
+              },
+              python = {
+                analysis = {
+                  ignore = { "*" },
+                },
               },
             },
-          },
-        }),
+          })
+        end,
       },
     })
 

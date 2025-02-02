@@ -1,6 +1,5 @@
-if true then
-  return {}
-end
+-- stylua: ignore
+if true then return {} end
 
 return {
   "neovim/nvim-lspconfig",
@@ -17,26 +16,26 @@ return {
     "j-hui/fidget.nvim",
   },
   config = function()
-    local cmp = require("cmp")
-    local cmp_lsp = require("cmp_nvim_lsp")
-    local capabilities =
-      vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local opts = { buffer = args.buf }
 
-        if client:supports_method("textDocument/implementation") then
-          vim.keymap.set("n", "gr", vim.lsp.buf.implementation, opts)
-        end
-
-        if client:supports_method("textDocument/completion") then
+        -- if client:supports_method("textDocument/implementation") then
+        --   vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts)
+        -- end
+        if client:supports_method("textDocument/hover") then
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        end
+        -- if client:supports_method("textDocument/definition") then
+        --   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        -- end
+        -- if client:supports_method("textDocument/references") then
+        --   vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        -- end
+        if client:supports_method("textDocument/codeAction") then
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
         end
-
         if client:supports_method("textDocument/formatting") then
           vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, opts)
 
@@ -50,10 +49,15 @@ return {
       end,
     })
 
+    local cmp_lsp = require("cmp_nvim_lsp")
+    local capabilities =
+      vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+
     require("fidget").setup()
     require("mason").setup()
 
     local lspconfig = require("lspconfig")
+
     require("mason-lspconfig").setup({
       ensure_installed = { "clangd", "lua_ls", "neocmake", "taplo", "yamlls", "ruff", "pyright" },
       handlers = {
@@ -106,6 +110,7 @@ return {
       },
     })
 
+    local cmp = require("cmp")
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup({

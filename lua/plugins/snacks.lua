@@ -1,5 +1,8 @@
 return {
   "folke/snacks.nvim",
+  dependencies = {
+    "echasnovski/mini.icons",
+  },
   priority = 1000,
   lazy = false,
   opts = {
@@ -8,17 +11,13 @@ return {
     git = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 1000,
-    },
     picker = { enabled = true },
     quickfile = { enabled = true },
     rename = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
   },
-  --stylua: ignore
+  -- stylua: ignore
   keys = {
     -- Picker
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,                desc = "Find Config File", },
@@ -44,13 +43,10 @@ return {
     { "gy",         function() Snacks.picker.lsp_type_definitions() end,                                   desc = "Goto T[y]pe Definition" },
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end,                                            desc = "LSP Symbols" },
   },
-  init = function()
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "VeryLazy",
-      callback = function() end,
-    })
-  end,
-  dependencies = {
-    "echasnovski/mini.icons",
-  },
+  -- init = function()
+  --   vim.api.nvim_create_autocmd("User", {
+  --     pattern = "VeryLazy",
+  --     callback = function() end,
+  --   })
+  -- end,
 }
