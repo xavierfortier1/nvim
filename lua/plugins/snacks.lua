@@ -11,7 +11,16 @@ return {
     git = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      win = {
+        input = {
+          keys = {
+            ["<Esc>"] = { "close", mode = { "n", "i" } },
+          },
+        },
+      },
+    },
     quickfile = { enabled = true },
     rename = { enabled = true },
     statuscolumn = { enabled = true },
