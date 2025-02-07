@@ -26,7 +26,7 @@ return {
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = args.buf,
             callback = function()
-              vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
             end,
           })
         end
@@ -94,11 +94,11 @@ return {
           })
         end,
         neocmake = function()
-          local cmake_capabilities = capabilities
-          cmake_capabilities.textDocument.completion.completionItem.snippetSupport = true
+          local neocmake_capabilities = capabilities
+          neocmake_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
           lspconfig.neocmake.setup({
-            capabilities = cmake_capabilities,
+            capabilities = neocmake_capabilities,
           })
         end,
         lua_ls = function()

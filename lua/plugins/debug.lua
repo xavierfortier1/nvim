@@ -66,8 +66,8 @@ return {
     { "<F9>", function() require("dap").step_into() end, desc = "Step Into" },
     { "<F10>", function() require("dap").step_over() end, desc = "Step Over" },
     { "<F11>", function() require("dap").step_out() end, desc = "Step Out" },
-    { "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-    { "<leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Set Breakpoint" },
+    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Set Breakpoint" },
     { "<F8>", function() require("dapui").toggle() end, desc = "Last session result" },
   },
 }

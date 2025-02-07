@@ -13,10 +13,10 @@ return {
       handlers = {},
     })
 
-    -- require("null-ls").setup({
-    --   sources = {
-    --     -- Anything not supported by mason.
-    --   },
-    -- })
+    require("null-ls").setup({
+      sources = {
+        -- Anything not supported by mason.
+      },
+    })
   end,
 }
