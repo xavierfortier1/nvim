@@ -26,9 +26,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "100"
 
+vim.opt.numberwidth = 3
+vim.opt.signcolumn = "yes:1"
+vim.opt.statuscolumn = "%l%s"
 vim.opt.fillchars = { eob = " " }
-
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.cmdheight = 0
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -36,4 +38,6 @@ vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 1
+vim.opt.foldnestmax = 2
+
+vim.opt.clipboard:append("unnamedplus")

@@ -17,6 +17,9 @@ return {
         if client:supports_method("textDocument/hover") then
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         end
+        if client:supports_method("textDocument/rename") then
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        end
         if client:supports_method("textDocument/codeAction") then
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
         end
@@ -26,7 +29,7 @@ return {
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = args.buf,
             callback = function()
-                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+              vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
             end,
           })
         end
@@ -86,7 +89,6 @@ return {
         "pyright",
         "jsonls",
       },
-
       handlers = {
         function(server_name)
           lspconfig[server_name].setup({
@@ -107,7 +109,7 @@ return {
             settings = {
               Lua = {
                 diagnostics = {
-                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "Snacks" },
                 },
                 format = { enable = false },
               },
@@ -149,6 +151,21 @@ return {
         header = "",
         prefix = "",
       },
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.INFO] = "",
+          [vim.diagnostic.severity.HINT] = "",
+        },
+        numhl = {
+          [vim.diagnostic.severity.WARN] = "WarningMsg",
+          [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+          [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+          [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+        },
+      },
+      virtual_lines = true,
     })
   end,
 }

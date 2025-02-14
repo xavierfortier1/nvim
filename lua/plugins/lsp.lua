@@ -27,6 +27,9 @@ return {
         if client:supports_method("textDocument/hover") then
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         end
+        if client:supports_method("textDocument/rename") then
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        end
         -- if client:supports_method("textDocument/definition") then
         --   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         -- end
@@ -80,7 +83,7 @@ return {
             settings = {
               Lua = {
                 diagnostics = {
-                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "Snacks" },
                 },
                 format = { enable = false },
               },
@@ -141,6 +144,21 @@ return {
         header = "",
         prefix = "",
       },
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.INFO] = "",
+          [vim.diagnostic.severity.HINT] = "",
+        },
+        numhl = {
+          [vim.diagnostic.severity.WARN] = "WarningMsg",
+          [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+          [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+          [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+        },
+      },
+      virtual_lines = true,
     })
   end,
 }
