@@ -7,16 +7,45 @@ return {
   lazy = false,
   opts = {
     bigfile = { enabled = true },
-    dashboard = { enabled = true },
+    dashboard = {
+      enabled = true,
+      preset = {
+        header = [[
+░▒▓███████▓▒░░▒▓████████▓▒░▒▓████████▓▒░░▒▓██████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░
+       ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       
+       ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░       
+ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░     ░▒▓█▓▒░░▒▓███████▓▒░ 
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░    ░▒▓█▓▒░ ░▒▓█▓▒░░▒▓█▓▒░
+░▒▓████████▓▒░▒▓████████▓▒░▒▓████████▓▒░░▒▓██████▓▒░     ░▒▓█▓▒░  ░▒▓██████▓▒░ 
+        ]],
+      },
+      sections = {
+        { section = "header" },
+        { section = "keys", gap = 1, padding = 1 },
+      },
+    },
     git = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
     picker = {
       enabled = true,
+      matcher = {
+        cwd_bonus = true,
+      },
       win = {
         input = {
           keys = {
             ["<c-y>"] = { "confirm", mode = { "n", "i" } },
+            ["<up>"] = { "list_up", mode = { "n", "i" } },
+            ["<down>"] = { "list_down", mode = { "n", "i" } },
+          },
+        },
+        list = {
+          keys = {
+            ["<c-y>"] = { "confirm", mode = { "n", "i" } },
+            ["<up>"] = { "list_up", mode = { "n", "i" } },
+            ["<down>"] = { "list_down", mode = { "n", "i" } },
           },
         },
       },
@@ -40,6 +69,8 @@ return {
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
     { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+    { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+    { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
 
     -- Git
     { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
