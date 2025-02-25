@@ -30,7 +30,9 @@ vim.opt.numberwidth = 3
 vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
 vim.opt.fillchars = { eob = " " }
+
 vim.opt.cmdheight = 0
+vim.opt.shortmess:append("csCFSW")
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
