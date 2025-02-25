@@ -4,4 +4,8 @@ return {
   opts = {
     signs = false,
   },
+  -- stylua: ignore
+  keys = {
+    { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+  },
 }

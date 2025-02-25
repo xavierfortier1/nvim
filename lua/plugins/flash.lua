@@ -2,18 +2,10 @@ return {
   "folke/flash.nvim",
   event = "VeryLazy",
   opts = {
-    highlight = {
-      backdrop = false,
-    },
-    jump = {
-      autojump = true,
-    },
-    label = {
-      uppercase = false,
-    },
-    prompt = {
-      enabled = false,
-    },
+    highlight = { backdrop = false },
+    jump = { autojump = true },
+    label = { uppercase = false },
+    prompt = { enabled = false },
   },
   -- stylua: ignore
   keys = {
