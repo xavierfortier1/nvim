@@ -1,8 +1,6 @@
 return {
   "folke/snacks.nvim",
-  dependencies = {
-    "echasnovski/mini.icons",
-  },
+  dependencies = { "echasnovski/mini.icons" },
   priority = 1000,
   lazy = false,
   opts = {
@@ -10,6 +8,15 @@ return {
     dashboard = {
       enabled = true,
       preset = {
+        -- stylua: ignore
+        keys = {
+          { icon = "", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+          { icon = "", key = "n", desc = "New File", action = ":ene | startinsert" },
+          { icon = "", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
+          { icon = "󰒲", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+          { icon = "󱊈", key = "m", desc = "Mason", action = ":Mason", enabled = package.loaded.lazy ~= nil },
+          { icon = "", key = "q", desc = "Quit", action = ":qa" },
+        },
         header = [[
 ░▒▓███████▓▒░░▒▓████████▓▒░▒▓████████▓▒░░▒▓██████▓▒░░▒▓████████▓▒░░▒▓███████▓▒░
        ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       
@@ -30,9 +37,7 @@ return {
     lazygit = { enabled = true },
     picker = {
       enabled = true,
-      matcher = {
-        cwd_bonus = true,
-      },
+      matcher = { cwd_bonus = true },
       win = {
         input = {
           keys = {
@@ -69,8 +74,6 @@ return {
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
     { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-    { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
-    { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
 
     -- Git
     { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
