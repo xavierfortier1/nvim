@@ -1,16 +1,9 @@
 return {
   {
-    "echasnovski/mini.ai",
-    version = false,
-    opts = {},
-  },
-  {
     "echasnovski/mini.comment",
     version = false,
     opts = {
-      options = {
-        ignore_blank_line = true,
-      },
+      options = { ignore_blank_line = true },
     },
   },
   {
@@ -19,17 +12,13 @@ return {
     opts = {
       view = {
         style = "sign",
-        signs = {
-          add = "▎",
-          change = "▎",
-          delete = "",
-        },
+        signs = { add = "▎", change = "▎", delete = "" },
       },
     },
   },
   {
     "echasnovski/mini.pairs",
     version = false,
-    opts = {},
+    config = true,
   },
 }
