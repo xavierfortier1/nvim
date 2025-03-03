@@ -1,37 +1,31 @@
 return {
   "mfussenegger/nvim-dap",
   dependencies = {
-    "rcarriga/nvim-dap-ui",
+    {
+      "rcarriga/nvim-dap-ui",
+      opts = {
+        icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
+        controls = {
+          icons = {
+            pause = "⏸",
+            play = "▶",
+            step_into = "⏎",
+            step_over = "⏭",
+            step_out = "⏮",
+            step_back = "b",
+            run_last = "▶▶",
+            terminate = "⏹",
+            disconnect = "⏏",
+          },
+        },
+      },
+    },
     "nvim-neotest/nvim-nio",
-    "williamboman/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
   },
   config = function()
     local dap = require("dap")
     local dapui = require("dapui")
-
-    require("mason-nvim-dap").setup({
-      automatic_installation = false,
-      handlers = {},
-      ensure_installed = {},
-    })
-
-    dapui.setup({
-      icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
-      controls = {
-        icons = {
-          pause = "⏸",
-          play = "▶",
-          step_into = "⏎",
-          step_over = "⏭",
-          step_out = "⏮",
-          step_back = "b",
-          run_last = "▶▶",
-          terminate = "⏹",
-          disconnect = "⏏",
-        },
-      },
-    })
 
     vim.api.nvim_set_hl(0, "DapBreak", { fg = "#e51400" })
     vim.api.nvim_set_hl(0, "DapStop", { fg = "#ffcc00" })
@@ -51,9 +45,8 @@ return {
         Stopped = "⭔",
       }
     for type, icon in pairs(breakpoint_icons) do
-      local tp = "Dap" .. type
       local hl = (type == "Stopped") and "DapStop" or "DapBreak"
-      vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
+      vim.fn.sign_define("Dap" .. type, { text = icon, texthl = hl, numhl = hl })
     end
 
     dap.listeners.after.event_initialized["dapui_config"] = dapui.open
