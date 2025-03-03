@@ -5,6 +5,12 @@ return {
     highlight = { backdrop = false },
     jump = { autojump = true },
     label = { uppercase = false },
+    modes = {
+      search = { enabled = true },
+      char = {
+        highlight = { backdrop = false },
+      },
+    },
     prompt = { enabled = false },
   },
   -- stylua: ignore
