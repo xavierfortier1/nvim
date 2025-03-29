@@ -34,8 +34,9 @@ vim.opt.fillchars = { eob = " " }
 vim.opt.cmdheight = 0
 vim.opt.shortmess:append("csCFSW")
 
+vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99

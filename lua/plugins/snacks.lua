@@ -10,7 +10,7 @@ return {
       preset = {
         -- stylua: ignore
         keys = {
-          { icon = "", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+          { icon = "", key = "f", desc = "Find Files", action = ":lua Snacks.dashboard.pick('files')" },
           { icon = "", key = "n", desc = "New File", action = ":ene | startinsert" },
           { icon = "", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
           { icon = "󰒲", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
@@ -34,7 +34,6 @@ return {
     },
     git = { enabled = true },
     input = { enabled = true },
-    lazygit = { enabled = true },
     picker = {
       enabled = true,
       matcher = { cwd_bonus = true },
@@ -77,7 +76,6 @@ return {
 
     -- Git
     { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
-    { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
 
     -- LSP
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },

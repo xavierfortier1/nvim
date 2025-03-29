@@ -21,4 +21,9 @@ return {
     version = false,
     config = true,
   },
+  {
+    "echasnovski/mini.icons",
+    version = false,
+    config = true,
+  },
 }

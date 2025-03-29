@@ -1,95 +1,108 @@
 return {
-  "neovim/nvim-lspconfig",
-  dependencies = {
-    {
-      "saghen/blink.cmp",
-      version = "*",
-      opts = {
-        cmdline = {
-          completion = {
-            menu = { auto_show = true },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local opts = { buffer = args.buf }
+
+          if not client then
+            return
+          end
+
+          if client:supports_method("textDocument/hover") then
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          end
+          if client:supports_method("textDocument/rename") then
+            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          end
+          if client:supports_method("textDocument/codeAction") then
+            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+          end
+          if client:supports_method("textDocument/formatting") then
+            vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, opts)
+
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = args.buf,
+              callback = function()
+                -- vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                vim.lsp.buf.format(opts)
+              end,
+            })
+          end
+        end,
+      })
+
+      vim.diagnostic.config({
+        float = {
+          focusable = false,
+          style = "minimal",
+          border = "rounded",
+          source = true,
+          header = "",
+          prefix = "",
+        },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.HINT] = "",
+          },
+          numhl = {
+            [vim.diagnostic.severity.WARN] = "WarningMsg",
+            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+            [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+            [vim.diagnostic.severity.HINT] = "DiagnosticHint",
           },
         },
+        virtual_lines = true,
+      })
+    end,
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "echasnovski/mini.icons",
+      "rafamadriz/friendly-snippets",
+    },
+    version = "*",
+    opts = {
+      cmdline = {
         completion = {
-          menu = {
-            draw = {
-              components = {
-                kind_icon = {
-                  ellipsis = false,
-                  text = function(ctx)
-                    local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-                    return kind_icon
-                  end,
-                  highlight = function(ctx)
-                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                    return hl
-                  end,
-                },
+          ghost_text = { enabled = true },
+          menu = { auto_show = true },
+        },
+      },
+      completion = {
+        ghost_text = { enabled = true },
+        menu = {
+          draw = {
+            components = {
+              kind_icon = {
+                ellipsis = false,
+                text = function(ctx)
+                  local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return kind_icon
+                end,
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end,
               },
             },
           },
         },
       },
-      dependencies = {
-        "echasnovski/mini.icons",
-        "rafamadriz/friendly-snippets",
+      signature = {
+        enabled = true,
+        window = { show_documentation = false },
       },
     },
-    { "j-hui/fidget.nvim", opts = {} },
   },
-  config = function()
-    vim.api.nvim_create_autocmd("LspAttach", {
-      callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        local opts = { buffer = args.buf }
-
-        if client:supports_method("textDocument/hover") then
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        end
-        if client:supports_method("textDocument/rename") then
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        end
-        if client:supports_method("textDocument/codeAction") then
-          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        end
-        if client:supports_method("textDocument/formatting") then
-          vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, opts)
-
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = args.buf,
-            callback = function()
-              -- vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-              vim.lsp.buf.format(opts)
-            end,
-          })
-        end
-      end,
-    })
-
-    vim.diagnostic.config({
-      float = {
-        focusable = false,
-        style = "minimal",
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = "",
-      },
-      signs = {
-        text = {
-          [vim.diagnostic.severity.ERROR] = "",
-          [vim.diagnostic.severity.WARN] = "",
-          [vim.diagnostic.severity.INFO] = "",
-          [vim.diagnostic.severity.HINT] = "",
-        },
-        numhl = {
-          [vim.diagnostic.severity.WARN] = "WarningMsg",
-          [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-          [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-          [vim.diagnostic.severity.HINT] = "DiagnosticHint",
-        },
-      },
-      virtual_lines = true,
-    })
-  end,
+  {
+    "j-hui/fidget.nvim",
+    config = true,
+  },
 }

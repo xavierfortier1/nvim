@@ -6,3 +6,5 @@ vim.keymap.set("", "<CR>", "<nop>", { noremap = true })
 
 vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>", { silent = true, desc = "Buffer close" })
 vim.keymap.set("n", "gV", "`[v`]", { silent = true, desc = "Select last paste area" })
+vim.keymap.set("n", "<leader>,", "<cmd>silent w<cr>", { silent = true, desc = "Write file" })
+vim.keymap.set("n", "<leader>.", "<cmd>silent wa<cr>", { silent = true, desc = "Write all files" })

@@ -1,51 +1,53 @@
 return {
-  "rebelot/heirline.nvim",
-  event = "UiEnter",
-  config = function()
-    local conditions = require("heirline.conditions")
-    local utils = require("heirline.utils")
+  {
+    "rebelot/heirline.nvim",
+    dependencies = { "zeioth/heirline-components.nvim" },
+    event = "UiEnter",
+    opts = function()
+      local lib = require("heirline-components.all")
 
-    local colors = {
-      bright_bg = utils.get_highlight("Folded").bg,
-      bright_fg = utils.get_highlight("Folded").fg,
-      red = utils.get_highlight("DiagnosticError").fg,
-      dark_red = utils.get_highlight("DiffDelete").bg,
-      green = utils.get_highlight("String").fg,
-      blue = utils.get_highlight("Function").fg,
-      gray = utils.get_highlight("NonText").fg,
-      orange = utils.get_highlight("Constant").fg,
-      purple = utils.get_highlight("Statement").fg,
-      cyan = utils.get_highlight("Special").fg,
-      diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-      diag_error = utils.get_highlight("DiagnosticError").fg,
-      diag_hint = utils.get_highlight("DiagnosticHint").fg,
-      diag_info = utils.get_highlight("DiagnosticInfo").fg,
-      git_del = utils.get_highlight("diffDeleted").fg,
-      git_add = utils.get_highlight("diffAdded").fg,
-      git_change = utils.get_highlight("diffChanged").fg,
-    }
+      return {
+        opts = {
+          disable_winbar_cb = function(args)
+            local is_disabled = not require("heirline-components.buffer").is_valid(args.buf)
+              or lib.condition.buffer_matches({
+                buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
+                filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
+              }, args.buf)
+            return is_disabled
+          end,
+        },
+        statusline = {
+          hl = { fg = "fg", bg = "bg" },
+          lib.component.mode(),
+          lib.component.git_branch(),
+          lib.component.file_info({
+            filename = {},
+            filetype = false,
+            file_modified = {},
+          }),
+          lib.component.diagnostics(),
+          lib.component.fill(),
+          lib.component.cmd_info(),
+          lib.component.fill(),
+          lib.component.lsp({ lsp_progress = false }),
+          lib.component.virtual_env(),
+          -- lib.component.nav(),
+          lib.component.mode({ surround = { separator = "right" } }),
+        },
+      }
+    end,
+    config = function(_, opts)
+      local heirline = require("heirline")
+      local heirline_components = require("heirline-components.all")
 
-    vim.api.nvim_create_augroup("Heirline", { clear = true })
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = function()
-        utils.on_colorscheme(colors)
-      end,
-      group = "Heirline",
-    })
-
-    local statusline = {}
-    local winbar = {}
-    local tabline = {}
-    local statuscolumn = {}
-
-    require("heirline").setup({
-      -- statusline = statusline,
-      -- winbar = winbar,
-      -- tabline = tabline,
-      -- statuscolumn = statuscolumn,
-      opts = {
-        colors = colors,
-      },
-    })
-  end,
+      heirline_components.init.subscribe_to_events()
+      heirline.load_colors(heirline_components.hl.get_colors())
+      heirline.setup(opts)
+    end,
+  },
+  {
+    "zeioth/heirline-components.nvim",
+    config = true,
+  },
 }
