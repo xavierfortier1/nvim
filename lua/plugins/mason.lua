@@ -4,7 +4,6 @@ return {
     dependencies = {
       "neovim/nvim-lspconfig",
       "williamboman/mason-lspconfig.nvim",
-      "jay-babu/mason-null-ls.nvim",
       "jay-babu/mason-nvim-dap.nvim",
     },
     opts = {},
@@ -82,18 +81,6 @@ return {
         },
       })
     end,
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    opts = {
-      automatic_installation = false,
-      ensure_installed = {
-        "stylua",
-        "clang-format",
-        "jq",
-      },
-      handlers = {},
-    },
   },
   {
     "jay-babu/mason-nvim-dap.nvim",

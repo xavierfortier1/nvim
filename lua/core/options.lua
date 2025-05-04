@@ -44,3 +44,4 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 2
 
 vim.opt.clipboard:append("unnamedplus")
+vim.opt.swapfile = false
