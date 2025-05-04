@@ -48,6 +48,6 @@ return {
   },
   {
     "zeioth/heirline-components.nvim",
-    config = true,
+    opts = {},
   },
 }

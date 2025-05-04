@@ -19,11 +19,11 @@ return {
   {
     "echasnovski/mini.pairs",
     version = false,
-    config = true,
+    opts = {},
   },
   {
     "echasnovski/mini.icons",
     version = false,
-    config = true,
+    opts = {},
   },
 }

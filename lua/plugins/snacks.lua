@@ -41,20 +41,15 @@ return {
         input = {
           keys = {
             ["<c-y>"] = { "confirm", mode = { "n", "i" } },
-            ["<up>"] = { "list_up", mode = { "n", "i" } },
-            ["<down>"] = { "list_down", mode = { "n", "i" } },
           },
         },
         list = {
           keys = {
             ["<c-y>"] = { "confirm", mode = { "n", "i" } },
-            ["<up>"] = { "list_up", mode = { "n", "i" } },
-            ["<down>"] = { "list_down", mode = { "n", "i" } },
           },
         },
       },
     },
-    quickfile = { enabled = true },
     rename = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
