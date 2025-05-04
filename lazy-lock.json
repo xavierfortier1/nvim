@@ -19,13 +19,13 @@
   "mini.pairs": { "branch": "main", "commit": "69864a2efb36c030877421634487fd90db1e4298" },
   "nvim-dap": { "branch": "master", "commit": "8df427aeba0a06c6577dc3ab82de3076964e3b8d" },
   "nvim-dap-ui": { "branch": "master", "commit": "73a26abf4941aa27da59820fd6b028ebcdbcf932" },
-  "nvim-lspconfig": { "branch": "master", "commit": "46434074f188e6bfccf9d9153dd8be6b1381498b" },
+  "nvim-lspconfig": { "branch": "master", "commit": "4bc481b6f0c0cf3671fc894debd0e00347089a4e" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-treesitter": { "branch": "master", "commit": "94ea4f436d2b59c80f02e293466c374584f03b8c" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
-  "rose-pine": { "branch": "main", "commit": "614892e32e94378d976a238f287532cfe790c1fe" },
+  "rose-pine": { "branch": "main", "commit": "491a0c77abc7ecb955c27a974091a5968232995f" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
-  "yazi.nvim": { "branch": "main", "commit": "86f69c6d3f7745e8a603d3c68f64d21adcdd686c" }
+  "yazi.nvim": { "branch": "main", "commit": "1910c20ebb969934b05f0b14992bfff095587e18" }
 }

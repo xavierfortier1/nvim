@@ -1,6 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp" },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
@@ -25,6 +26,58 @@ return {
           end
         end,
       })
+
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "Snacks" },
+            },
+            format = { enable = false },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+            telemetry = { enable = false },
+          },
+        },
+      })
+
+      local capabilities = require("blink.cmp").get_lsp_capabilities({
+        textDocument = {
+          completion = {
+            completionItem = { snippetSupport = true },
+          },
+        },
+      })
+      vim.lsp.config("neocmake", { capabilities = capabilities })
+
+      capabilities = require("blink.cmp").get_lsp_capabilities({ hoverProvider = false })
+      vim.lsp.config("ruff", {
+        capabilities = capabilities,
+        init_options = {
+          settings = { lineLength = 100 },
+        },
+      })
+
+      vim.lsp.config("pyright", {
+        settings = {
+          pyright = { disableOrganizeImports = true },
+          python = {
+            analysis = {
+              ignore = { "*" },
+            },
+          },
+        },
+      })
+
+      vim.lsp.enable("clangd")
+      vim.lsp.enable("jsonls")
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("neocmake")
+      vim.lsp.enable("pyright")
+      vim.lsp.enable("ruff")
+      vim.lsp.enable("rust-analyzer")
+      vim.lsp.enable("taplo")
+      vim.lsp.enable("yamlls")
+      vim.lsp.enable("zls")
 
       vim.diagnostic.config({
         float = {
