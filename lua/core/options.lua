@@ -1,47 +1,74 @@
-vim.g.mapleader = " "
+local g = vim.g
+local opt = vim.opt
+local diagnostic = vim.diagnostic
 
-vim.opt.mouse = ""
-vim.opt.mousescroll = "ver:0,hor:0"
+g.mapleader = " "
 
-vim.opt.number = true
-vim.opt.relativenumber = true
+opt.mouse = ""
+opt.mousescroll = "ver:0,hor:0"
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
+opt.number = true
+opt.relativenumber = true
 
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.autoindent = true
+opt.smartindent = true
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+opt.ignorecase = true
+opt.smartcase = true
 
-vim.opt.termguicolors = true
-vim.opt.wrap = false
+opt.hlsearch = false
+opt.incsearch = true
 
-vim.opt.signcolumn = "yes"
-vim.opt.cursorline = true
-vim.opt.colorcolumn = "100"
+opt.termguicolors = true
+opt.wrap = false
 
-vim.opt.numberwidth = 3
-vim.opt.signcolumn = "yes:1"
-vim.opt.statuscolumn = "%l%s"
-vim.opt.fillchars = { eob = " " }
+opt.signcolumn = "yes"
+opt.cursorline = true
+opt.colorcolumn = "100"
 
-vim.opt.cmdheight = 0
-vim.opt.shortmess:append("csCFSW")
+opt.numberwidth = 3
+opt.signcolumn = "yes:1"
+opt.statuscolumn = "%l%s"
+opt.fillchars = { eob = " " }
 
-vim.opt.foldenable = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
-vim.opt.foldcolumn = "0"
-vim.opt.foldtext = ""
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 2
+opt.cmdheight = 0
+opt.shortmess:append("csCFSW")
 
-vim.opt.clipboard:append("unnamedplus")
-vim.opt.swapfile = false
+opt.foldenable = true
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+opt.foldcolumn = "0"
+opt.foldtext = ""
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldnestmax = 2
+
+opt.clipboard:append("unnamedplus")
+opt.swapfile = false
+
+diagnostic.config({
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
+  },
+  signs = {
+    text = vim.tbl_map(function()
+      return ""
+    end, diagnostic.severity),
+    numhl = {
+      [diagnostic.severity.WARN] = "WarningMsg",
+      [diagnostic.severity.ERROR] = "ErrorMsg",
+      [diagnostic.severity.INFO] = "DiagnosticInfo",
+      [diagnostic.severity.HINT] = "DiagnosticHint",
+    },
+  },
+  virtual_lines = true,
+})

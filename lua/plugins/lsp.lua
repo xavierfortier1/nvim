@@ -78,29 +78,6 @@ return {
       vim.lsp.enable("taplo")
       vim.lsp.enable("yamlls")
       vim.lsp.enable("zls")
-
-      vim.diagnostic.config({
-        float = {
-          focusable = false,
-          style = "minimal",
-          border = "rounded",
-          source = true,
-          header = "",
-          prefix = "",
-        },
-        signs = {
-          text = vim.tbl_map(function()
-            return ""
-          end, vim.diagnostic.severity),
-          numhl = {
-            [vim.diagnostic.severity.WARN] = "WarningMsg",
-            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-            [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-            [vim.diagnostic.severity.HINT] = "DiagnosticHint",
-          },
-        },
-        virtual_lines = true,
-      })
     end,
   },
   {
