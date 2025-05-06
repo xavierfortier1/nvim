@@ -67,17 +67,6 @@ return {
           },
         },
       })
-
-      vim.lsp.enable("clangd")
-      vim.lsp.enable("jsonls")
-      vim.lsp.enable("lua_ls")
-      vim.lsp.enable("neocmake")
-      vim.lsp.enable("pyright")
-      vim.lsp.enable("ruff")
-      vim.lsp.enable("rust-analyzer")
-      vim.lsp.enable("taplo")
-      vim.lsp.enable("yamlls")
-      vim.lsp.enable("zls")
     end,
   },
   {
