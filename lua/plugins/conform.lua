@@ -10,9 +10,24 @@ return {
       json = { "jq" },
       rust = { "rustfmt" },
       toml = { "taplo" },
+      bitbake = { "oelint_adv" },
     },
     default_format_opts = {
       lsp_format = "fallback",
+    },
+    formatters = {
+      oelint_adv = {
+        meta = {
+          url = "https://github.com/priv-kweihmann/oelint-adv",
+          description = "Advanced OpenEmbedded Style guide",
+        },
+        command = "oelint-adv",
+        args = {
+          "--quiet",
+          "--messageformat={path}:{line}:{severity}:{id}:{msg}",
+        },
+        stdin = false,
+      },
     },
   },
   config = function(_, opts)

@@ -27,6 +27,13 @@ return {
         end,
       })
 
+      vim.lsp.config("bitbake_ls", {
+        cmd = { "language-server-bitbake", "--stdio" },
+        filetypes = { "bitbake" },
+        root_markers = { ".git" },
+      })
+      vim.lsp.enable("bitbake_ls")
+
       vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
