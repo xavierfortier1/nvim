@@ -1,9 +1,8 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      "jay-babu/mason-nvim-dap.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     config = function()
       require("mason").setup({})
@@ -19,7 +18,7 @@ return {
           "ruff",
           "pyright",
           "jsonls",
-          "rust-analyzer",
+          "rust_analyzer",
           "zls",
         },
       })
